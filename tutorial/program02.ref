@@ -1,0 +1,49 @@
+********************************************************************************
+*                                                                              *
+*    QTA - Qemu Timing Analyzer                                                *
+*                                                                              *
+*    Version 0.1                                                               *
+*    Copyright (C) 2021, Peer Adelt <adelt@hni.upb.de>, Paderborn University   *
+*                                                                              *
+********************************************************************************
+*                                                                              *
+*          Time database    : program02.qtdb                                   *
+*          Logfile          : program02.log                                    *
+*                                                                              *
+*      / -------------------------------------------------------------- \      *
+***** /                       PROGRAM OUTPUT BELOW                       \ *****
+
+[QTA]	Simulation started
+
+[QTA]	Execute TB	[ 0x80000000 : 0x80000008 ]
+	EDGE (_start -> b0)
+	EDGE (b0 -> b1)	(Time:  13 Cycles)
+
+[QTA]	Execute TB	[ 0x80000004 : 0x80000008 ]
+	EDGE (b1 -> b1)	(Time:   5 Cycles)
+
+[QTA]	Execute TB	[ 0x80000004 : 0x80000008 ]
+	EDGE (b1 -> b1)	(Time:   5 Cycles)
+
+[QTA]	Execute TB	[ 0x80000004 : 0x80000008 ]
+	EDGE (b1 -> b1)	(Time:   5 Cycles)
+
+[QTA]	Execute TB	[ 0x80000004 : 0x80000008 ]
+	EDGE (b1 -> b1)	(Time:   5 Cycles)
+
+[QTA]	Execute TB	[ 0x8000000c : 0x8000000c ]
+	EDGE (b1 -> end)	(Time:   2 Cycles)
+
+[QTA]	Simulation finished		(Total cycles: 35)
+
+***** \                       PROGRAM OUTPUT ABOVE                       / *****
+*      \ -------------------------------------------------------------- /      *
+*                                                                              *
+*          Simulated time    : 35 cycles                                       *
+*                                                                              *
+********************************************************************************
+*                                                                              *
+*    QTA Timing analysis completed successfully.                               *
+*    Qemu will now exit. Goodbye!                                              *
+*                                                                              *
+********************************************************************************

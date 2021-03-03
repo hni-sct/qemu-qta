@@ -1,0 +1,190 @@
+********************************************************************************
+*                                                                              *
+*    QTA - Qemu Timing Analyzer                                                *
+*                                                                              *
+*    Version 0.1                                                               *
+*    Copyright (C) 2021, Peer Adelt <adelt@hni.upb.de>, Paderborn University   *
+*                                                                              *
+********************************************************************************
+*                                                                              *
+*          Time database    : program03.qtdb                                   *
+*          Logfile          : program03.log                                    *
+*                                                                              *
+*      / -------------------------------------------------------------- \      *
+***** /                       PROGRAM OUTPUT BELOW                       \ *****
+
+[QTA]	Simulation started
+
+[QTA]	Execute TB	[ 0x00000020 : 0x00000026 ]
+	EDGE (d1_b3 -> d1_b5)
+	EDGE (d1_b5 -> d1_b7)	(Time:  10 Cycles)
+	CALL display @ 0x00000026 (d1_b7 -> d1_b23)
+
+[QTA]	Execute TB	[ 0x00000034 : 0x0000003c ]
+	EDGE (d1_b23 -> d1_b25)
+	EDGE (d1_b25 -> d1_b72)	(Time:   7 Cycles)
+	CALL display.L1 @ 0x00000034 (d1_b72 -> d1_b63)
+
+[QTA]	Execute TB	[ 0x0000004c : 0x00000052 ]
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   7 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x0000003e : 0x00000052 ]
+	EDGE (d1_b42 -> d1_b33)	(Time:   6 Cycles)
+	EDGE (d1_b33 -> d1_b65)	(Time:  11 Cycles)
+	CALL display.L1 @ 0x0000003e (d1_b65 -> d1_b63)
+	EDGE (d1_b63 -> d1_b42)
+
+[QTA]	Execute TB	[ 0x00000054 : 0x0000005e ]
+	EDGE (d1_b42 -> d1_b64)	(Time:   6 Cycles)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display.L1 @ 0x0000003e (d1_b64 -> d1_b66)
+	EDGE (d1_b66 -> d1_b64)
+	RETURN display @ 0x00000034 (d1_b64 -> d1_b73)
+	EDGE (d1_b73 -> d1_b49)
+	EDGE (d1_b49 -> d1_b24)	(Time:   7 Cycles)
+	RETURN main @ 0x00000026 (d1_b24 -> d1_b8)
+
+[QTA]	Execute TB	[ 0x0000002a : 0x0000002e ]
+	EDGE (d1_b8 -> d1_b17)
+	EDGE (d1_b17 -> d1_b4)	(Time:   7 Cycles)
+
+[QTA]	Simulation finished		(Total cycles: 327)
+
+***** \                       PROGRAM OUTPUT ABOVE                       / *****
+*      \ -------------------------------------------------------------- /      *
+*                                                                              *
+*          Simulated time    : 327 cycles                                      *
+*                                                                              *
+********************************************************************************
+*                                                                              *
+*    QTA Timing analysis completed successfully.                               *
+*    Qemu will now exit. Goodbye!                                              *
+*                                                                              *
+********************************************************************************

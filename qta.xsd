@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns="https://www.hni.uni-paderborn.de/sct"
+  targetNamespace="https://www.hni.uni-paderborn.de/sct">
+
+  <xs:simpleType name="cStyleIdentifier">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="2"/>
+      <xs:pattern value="[a-zA-Z_][a-zA-Z0-9_]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="TimingAnnotation">
+    <xs:complexType>
+      <xs:sequence>
+
+        <xs:element name="Routines" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Routine" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="id" type="cStyleIdentifier" use="required"/>
+                  <xs:attribute name="name" use="required">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="2"/>
+                        <xs:pattern value="[a-zA-Z_][a-zA-Z0-9_]+(\.[a-zA-Z_][a-zA-Z0-9_]*)?"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Blocks">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Block" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="id" type="cStyleIdentifier" use="required"/>
+                  <xs:attribute name="routine" type="cStyleIdentifier" use="optional"/>
+                  <xs:attribute name="blocktype" type="xs:string" use="optional"/>
+                  <xs:attribute name="address">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:pattern value="(0x)?[a-fA-F0-9]{8}"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="last_instruction" use="optional">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:pattern value="(0x)?[a-fA-F0-9]{8}"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Edges">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Edge" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="cycles" type="xs:nonNegativeInteger" use="required"/>
+                  <xs:attribute name="source" type="cStyleIdentifier" use="required"/>
+                  <xs:attribute name="target" type="cStyleIdentifier" use="required"/>
+                  <xs:attribute name="source_context" type="xs:string" use="required"/>
+                  <xs:attribute name="target_context" type="xs:string" use="required"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+      </xs:sequence>
+
+      <xs:attribute name="startBlock" type="cStyleIdentifier" use="required"/>
+      <xs:attribute name="startContext" type="xs:string" use="required"/>
+      <xs:attribute name="startRoutine" type="xs:string" use="optional"/>
+
+    </xs:complexType>
+
+    <xs:key name="rIdKey">
+      <xs:selector xpath="Routines/Routine"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:key name="bIdKey">
+      <xs:selector xpath="Blocks/Block"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+
+    <xs:keyref name="blockRoutineRef" refer="rIdKey">
+      <xs:selector xpath="Blocks/Block"/>
+      <xs:field xpath="@routine"/>
+    </xs:keyref>
+
+    <xs:keyref name="edgeSourceBlockRef" refer="bIdKey">
+      <xs:selector xpath="Edges/Edge"/>
+      <xs:field xpath="@source"/>
+    </xs:keyref>
+    <xs:keyref name="edgeTargetBlockRef" refer="bIdKey">
+      <xs:selector xpath="Edges/Edge"/>
+      <xs:field xpath="@target"/>
+    </xs:keyref>
+
+    <!-- Es muesste eigentlich bis zu zwei ausgehende Edges mit gleicher source, source_context geben duerfen. -->
+    <!-- <xs:unique name="edgeCompositeUnique">
+      <xs:selector xpath="Edges/Edge"/>
+      <xs:field xpath="@source"/>
+      <xs:field xpath="@source_context"/>
+    </xs:unique> -->
+
+    <xs:keyref name="startBlockRef" refer="bIdKey">
+      <xs:selector xpath="."/>
+      <xs:field xpath="@startBlock"/>
+    </xs:keyref>
+    <xs:keyref name="startRoutineRef" refer="rIdKey">
+      <xs:selector xpath="."/>
+      <xs:field xpath="@startRoutine"/>
+    </xs:keyref>
+
+    <!-- <xs:keyref name="startBlockRef" refer="edgeCompositeUnique">
+      <xs:selector xpath="."/>
+      <xs:field xpath="@startBlock"/>
+      <xs:field xpath="@startContext"/>
+    </xs:keyref> -->
+
+  </xs:element>
+</xs:schema>

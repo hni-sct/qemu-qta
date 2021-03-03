@@ -1,0 +1,432 @@
+#!/usr/bin/env python3
+
+'''
+QTA - Qemu Timing Analyzer
+
+Copyright (C) 2021, Peer Adelt <adelt@hni.upb.de>,
+Heinz Nixdorf Institut/Paderborn University, Paderborn, Germany
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+'''
+
+from lxml import etree
+import pygraphviz as pgv
+import sys
+import getopt
+
+
+class Graph(object):
+    def __init__(self):
+        self.__routines = dict()
+        self.__blocks = dict()
+        self.__edges = dict()
+
+    ''' Routines '''
+
+    def addroutine(self, r):
+        # print("add routine {} (ID: {})".format(r.name, r.ident))
+        if not isinstance(r, Routine):
+            raise TypeError('Value must be an Routine')
+        r.graph = self
+        self.__routines[r.ident] = r
+
+    def getroutine(self, ident):
+        if not isinstance(ident, str):
+            raise TypeError('Value must be an identifier')
+        if ident in self.__routines:
+            return self.__routines[ident]
+        return None
+
+    ''' Blocks '''
+
+    def addblock(self, b):
+        # print("  add block {} (type: {}, address: {})".format(b.ident, b.blocktype, b.address))
+        if not isinstance(b, Block):
+            raise TypeError('Value must be a Block')
+        self.__blocks[b.ident] = b
+
+    def getblock(self, ident):
+        if not isinstance(ident, str):
+            raise TypeError('Value must be a string')
+        if ident in self.__blocks:
+            return self.__blocks[ident]
+        return None
+
+    ''' Edges '''
+
+    def addedge(self, e):
+        if not isinstance(e, Edge):
+            raise TypeError('Value must be an Edge')
+        if not (e.sourcecontext, e.targetcontext, e.sourceblock.ident, e.targetblock.ident) in self.__edges:
+            self.__edges[(e.sourcecontext, e.targetcontext, e.sourceblock.ident, e.targetblock.ident)] = e
+
+    def getedge(self, sourcecontext, targetcontext, sourceblock, targetblock):
+        if not isinstance(sourceblock, Block) or not isinstance(targetblock, Block):
+            raise TypeError('Parameters must be Blocks')
+        if not isinstance(sourcecontext, str) or not isinstance(targetcontext, str):
+            raise TypeError('Context parameters must be Strings')
+        if (sourcecontext, targetcontext, sourceblock, targetblock) in self.__edges:
+            return self.__edges[(sourcecontext, targetcontext, sourceblock, targetblock)]
+        return None
+
+    def addcall(self, source_block, target_routine, source_context, target_context):
+        srcblk = self.getblock(source_block)
+        tgtblk = self.getroutine(target_routine).startblocks[target_context]
+        # print("  CALL   SRCBLK: {}".format(srcblk.ident))
+        # print("  CALL   TGTBLK: {}".format(tgtblk.ident))
+        e = Edge(sourceblock=srcblk, targetblock=tgtblk, sourcecontext=source_context, targetcontext=target_context)
+        self.addedge(e)
+
+    def addreturn(self, source_routine, target_block, source_context, target_context):
+        srcblk = self.getroutine(source_routine).endblocks[source_context]
+        tgtblk = self.getblock(target_block)
+        # print("  RETURN SRCBLK: {}".format(srcblk.ident))
+        # print("  RETURN TGTBLK: {}".format(tgtblk.ident))
+        e = Edge(sourceblock=srcblk, targetblock=tgtblk, sourcecontext=source_context, targetcontext=target_context)
+        self.addedge(e)
+
+    @property
+    def routines(self):
+        return self.__routines.values()
+
+    @property
+    def blocks(self):
+        return self.__blocks.values()
+
+    @property
+    def edges(self):
+        return self.__edges.values()
+
+    @classmethod
+    def fromAitXml(cls, path):
+        xmltree = etree.parse(path)
+        xpatheval = etree.XPathDocumentEvaluator(xmltree)
+        xpatheval.register_namespace('a', 'http://www.absint.com/a3report')
+        graph = cls()
+
+        ''' First pass: routines and edges '''
+        routines = xpatheval('//a:routines/a:routine')
+        for r in routines:
+            aitroutine = Routine(name=r.get('name'), ident=r.get('id'))
+            graph.addroutine(aitroutine)
+
+            # ''' Add normal blocks '''
+            blocks = xpatheval("//a:routines/a:routine[@id='" + r.get('id') + "']//a:block")
+            for b in blocks:
+                addr = b.get('address')
+                if addr != None and addr.startswith("thumb::"):
+                    hexaddr = int(b.get('address')[7:], 16)
+                    # addr = b.get('address')[7:]
+                    addr = "0x{:08x}".format(hexaddr)
+
+                hexaddr = None
+                if b.get('type') == 'normal':
+                    # last = xpatheval("//a:routines/a:routine[@id='" + r.get('id') + "']//a:block/a:last_instruction")[0].text
+                    last = None
+                    for c in b:
+                        if etree.QName(c).localname == "last_instruction":
+                            last = c.text
+                    if last != None and last.startswith("thumb::"):
+                        hexaddr = "0x{:08x}".format(int(last[7:], 16))
+                    # aitblock.last_address = hexaddr
+                    # last_addr = "0x{:08x}".format(b.find('last_instruction').getiterator()[0].text)
+
+                aitblock = Block(ident=b.get('id'), blocktype=b.get('type'), routine=aitroutine)
+                aitblock.first_instruction = addr
+                aitblock.last_instruction = hexaddr
+                graph.addblock(aitblock)
+
+        ''' Set entry routine '''
+        graph.entry_routine = graph.getroutine(xpatheval('//a:entry')[0].get('routine'))
+        ''' Set entry block '''
+        graph.entry_block = None
+        for block in graph.blocks:
+            if block.blocktype == 'start' and block.routine == graph.entry_routine:
+                if graph.entry_block != None:
+                    raise ValueError("Only one block can be the entry block!")
+                else:
+                    graph.entry_block = block
+
+        for r in routines:
+            # ''' Register all start blocks for the current routine edges '''
+            aitroutine = graph.getroutine(r.get('id'))
+            wcetedges = xpatheval("//a:wcet_path//a:wcet_routine[@routine='" + aitroutine.ident + "']//a:wcet_start")
+            for e in wcetedges:
+                block = graph.getblock(e.get('block'))
+                context = e.get('context')
+                aitroutine.startblocks[context] = block
+
+        for r in routines:
+            # ''' Register all start blocks for the current routine edges '''
+            aitroutine = graph.getroutine(r.get('id'))
+            wcetedges = xpatheval("//a:wcet_path//a:wcet_routine[@routine='" + aitroutine.ident + "']//a:wcet_end")
+            for e in wcetedges:
+                block = graph.getblock(e.get('block'))
+                context = e.get('context')
+                aitroutine.endblocks[context] = block
+
+        for r in routines:
+            # ''' Add normal edges '''
+            aitroutine = graph.getroutine(r.get('id'))
+            wcetedges = xpatheval("//a:wcet_path//a:wcet_routine[@routine='" + aitroutine.ident + "']//a:wcet_edge")
+            for e in wcetedges:
+                sourceblock = graph.getblock(e.get('source_block'))
+                targetblock = graph.getblock(e.get('target_block'))
+                sourcecontext = e.get('source_context')
+                targetcontext = e.get('target_context')
+                aitedge = Edge(sourceblock=sourceblock,
+                               targetblock=targetblock,
+                               sourcecontext=sourcecontext,
+                               targetcontext=targetcontext,
+                               cycles=e.get('edge_cycles'))
+                graph.addedge(aitedge)
+
+            # ''' Add call edges '''
+            wcetcalledges = xpatheval(
+                "//a:wcet_path//a:wcet_routine[@routine='" + aitroutine.ident + "']//a:wcet_edge_call")
+            for e in wcetcalledges:
+                #   ''' Edge to blue call block '''
+                graph.addcall(source_block=e.get('source_block'), target_routine=e.get('target_routine'),
+                              source_context=e.get('source_context'), target_context=e.get('target_context'))
+
+            # ''' Add return edges '''
+            wcetreturnedges = xpatheval(
+                "//a:wcet_path//a:wcet_routine[@routine='" + aitroutine.ident + "']//a:wcet_edge_return")
+            for e in wcetreturnedges:
+                #   ''' Edge to blue return block '''
+                graph.addreturn(source_routine=e.get('source_routine'), target_block=e.get('target_block'),
+                                source_context=e.get('source_context'), target_context=e.get('target_context'))
+
+        ''' Set entry_context '''
+        outedge = None
+        for e in graph.edges:
+            if e.sourceblock == graph.entry_block:
+                if outedge is not None:
+                    raise ValueError(
+                        "The start block may only have one outgoing edge. But it seems that is has more than that...")
+                outedge = e
+        if outedge is None:
+            raise ValueError("The start block must have an outgoing edge. But it seems that there isn't any...")
+            # graph.entry_context = ""
+        else:
+            graph.entry_context = outedge.sourcecontext
+
+        return graph
+
+
+class Routine(object):
+
+    def __init__(self, name='Routine_Name', ident='Routine_ID'):
+        self.name = name
+        self.ident = ident
+        self.graph = None
+        self.startblocks = dict()
+        self.endblocks = dict()
+
+
+class Block(object):
+
+    def __init__(self, ident, blocktype='normal', routine=None):
+        self.ident = ident
+        self.first_instruction = None,
+        self.last_instruction = None,
+        self.routine = routine
+        self.blocktype = blocktype
+        self.contexts = []
+
+
+class Edge(object):
+
+    def __init__(self, sourceblock=None, targetblock=None, sourcecontext=None, targetcontext=None, cycles=0):
+        self.sourceblock = sourceblock
+        self.targetblock = targetblock
+        self.sourcecontext = sourcecontext
+        self.targetcontext = targetcontext
+        if cycles == None:
+            self.cycles = 0
+        else:
+            self.cycles = int(cycles)
+
+
+class GraphVizDrawer(object):
+
+    def __init__(self, aitgraph):
+        self.graph = pgv.AGraph(directed=True)
+        self.graph.graph_attr['compound'] = True
+        self.graph.node_attr['shape'] = 'Mrecord'
+        self.graph.node_attr['style'] = 'filled'
+        self.__edgelabels = dict()
+        self.data = aitgraph
+
+    def creategraph(self):
+        # ''' Add routine subgraphs '''
+        # for r in self.data.routines:
+        #     self.graph.add_subgraph(name='cluster_' + r.ident,
+        #                                  label=r.name + ' (' + r.ident + ')',
+        #                                  style='filled',
+        #                                  shape='box',
+        #                                  fillcolor='grey90')
+
+        ''' Add blocks '''
+        for b in self.data.blocks:
+            # label = '<f0>' + b.ident + '|<f1>' + str(b.first_instruction)
+            fillcolor = 'white'
+            fontcolor = 'black'
+            fontname = 'Courier Bold'
+            if isinstance(b, Block):
+                if b.blocktype == 'start':
+                    fillcolor = 'gray72'
+                    label = 'start'
+                elif b.blocktype == 'end':
+                    fillcolor = 'gray72'
+                    label = 'end'
+                elif b.blocktype == 'call':
+                    fillcolor = 'deepskyblue3'
+                    label = 'call : {}'.format(b.first_instruction)
+                elif b.blocktype == 'return':
+                    fillcolor = 'deepskyblue1'
+                    label = 'return : {}'.format(b.first_instruction)
+                elif b.blocktype == 'normal':
+                    fontname = 'Courier'
+                    label = 'start : {}'.format(b.first_instruction) + '\\n last  : {}'.format(b.last_instruction)
+            label = '<f0>' + str(b.ident) + '|<f1>' + label
+            if self.graph.has_node(b.ident):
+                node = self.graph.get_node(b.ident)
+                node.attr['label'] = label
+                node.attr['fontname'] = fontname
+                node.attr['fontcolor'] = fontcolor
+                node.attr['fillcolor'] = fillcolor
+            else:
+                self.graph.add_node(b.ident,
+                                    label=label,
+                                    fontcolor=fontcolor,
+                                    fillcolor=fillcolor,
+                                    fontname=fontname)
+            # ''' Add blocks to routine subgraphs... '''
+            # sg = self.graph.get_subgraph(name='cluster_' + b.routine.ident)
+            # sg.add_nodes_from(nbunch=[b.ident])
+
+        ''' Add edges '''
+        for e in self.data.edges:
+            if e.sourcecontext != e.targetcontext:
+                label = e.sourcecontext + ' -> ' + e.targetcontext
+            else:
+                label = e.sourcecontext
+            if e.cycles:
+                label += ': ' + str(e.cycles)
+            color = 'black' if e.sourcecontext == e.targetcontext else 'dodgerblue3'
+            if self.graph.has_edge(e.sourceblock.ident, e.targetblock.ident):
+                graphedge = self.graph.get_edge(e.sourceblock.ident, e.targetblock.ident)
+                graphedge.attr['label'] += '\\n' + label
+            else:
+                self.graph.add_edge(e.sourceblock.ident, e.targetblock.ident, label=label, color=color, fontcolor=color)
+
+    def draw(self, filename):
+        self.graph.layout(prog='dot')
+        self.graph.draw(filename)
+
+
+class QemuXmlExporter(object):
+
+    def __init__(self, graph):
+        if not isinstance(graph, Graph):
+            raise TypeError('Graph must be a valid "CodeFlowGraph.Graph" instance.')
+
+        self.xml = etree.Element('{https://www.hni.uni-paderborn.de/sct}TimingAnnotation',
+                                 nsmap={'xsi': "http://www.w3.org/2001/XMLSchema-instance",
+                                        'qta': "https://www.hni.uni-paderborn.de/sct"})
+
+        routines = etree.SubElement(self.xml, 'Routines')
+        blocks = etree.SubElement(self.xml, 'Blocks')
+        edges = etree.SubElement(self.xml, 'Edges')
+        for r in graph.routines:
+            etree.SubElement(routines, 'Routine', {'id': r.ident, 'name': r.name})
+        for b in graph.blocks:
+            parameters = {'id': b.ident, 'routine': b.routine.ident, 'blocktype': b.blocktype}
+            if b.first_instruction != None:
+                parameters['address'] = str(b.first_instruction)
+            if b.last_instruction:
+                parameters['last_instruction'] = b.last_instruction
+            etree.SubElement(blocks, 'Block', parameters)
+        for e in graph.edges:
+            etree.SubElement(edges, 'Edge', {'source': e.sourceblock.ident, 'target': e.targetblock.ident,
+                                             'source_context': e.sourcecontext, 'target_context': e.targetcontext,
+                                             'cycles': str(e.cycles)})
+
+        self.xml.attrib[etree.QName("http://www.w3.org/2001/XMLSchema-instance",
+                                    "schemaLocation")] = "https://www.hni.uni-paderborn.de/sct qta.xsd"
+        self.xml.attrib['startRoutine'] = graph.entry_routine.ident
+        self.xml.attrib['startBlock'] = graph.entry_block.ident
+        self.xml.attrib['startContext'] = graph.entry_context
+
+    def writetofile(self, filename):
+        if not isinstance(filename, str):
+            raise TypeError('Filename must be a string.')
+
+        tree = etree.ElementTree(element=self.xml)
+        tree.write(filename, pretty_print=True, xml_declaration=True, encoding="UTF-8")
+
+
+def main(argv):
+    inputfile = None
+    outputfile = None
+    graphvizfile = None
+    try:
+        opts, args = getopt.getopt(argv[1:], "hi:o:g:", ["ifile=", "ofile=", "graphviz="])
+    except getopt.GetoptError:
+        printusage()
+        sys.exit(1)
+    for opt, arg in opts:
+        if opt == "-h":
+            printusage()
+            sys.exit(0)
+        elif opt in ("-i", "--ifile"):
+            inputfile = arg
+        elif opt in ("-o", "--ofile"):
+            outputfile = arg
+        elif opt in ("-g", "--graphviz"):
+            graphvizfile = arg
+
+    if inputfile is None:
+        printusage()
+        sys.exit(1)
+
+    ''' Parse a3 report '''
+    graph = Graph.fromAitXml(inputfile)
+    print("Opened a3 report file:", inputfile)
+
+    ''' Output QTDB '''
+    if outputfile is not None:
+        exporter = QemuXmlExporter(graph)
+        exporter.writetofile(outputfile)
+        print("Generated QTDB file:", outputfile)
+
+    ''' Output unprocessed graph as GraphViz PDF for documentation and debugging '''
+    if graphvizfile is not None:
+        graphdrawer = GraphVizDrawer(graph)
+        graphdrawer.creategraph()
+        graphdrawer.draw(graphvizfile)
+        print("Generated Visualization file: ", graphvizfile)
+
+def printusage():
+    print("ait2qta -i <a3 Report> -o <QTDB File> -g <Visualization>")
+
+
+if __name__ == '__main__':
+    main(sys.argv)

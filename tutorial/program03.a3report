@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="utf-8"?>
+<a3 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.absint.com/dtd/a3-report-19.10i.xsd" xmlns="http://www.absint.com/a3report" version="19.10i" build="5679526" tag="auto/2019/11/10/1919" id="aiT" filtered="true">
+<start>2021-02-26 at 11:23:33</start>
+<project xmlns="http://www.absint.com/apx" version="19.10i" build="5679526" target="arm">
+ <files>
+  <executables>/home/peer/dev/qemu-plugin-qta/tutorial/program03.arm.elf</executables>
+  <trace_format>Traval</trace_format>
+ </files>
+ <options>
+  <general_options>
+   <include_path>.</include_path>
+  </general_options>
+  <analyses_options>
+   <xml_show_per_context_info>true</xml_show_per_context_info>
+   <xml_wcet_path>true</xml_wcet_path>
+   <xml_non_wcet_cycles>true</xml_non_wcet_cycles>
+   <restrict_xml_report_to_tags>true</restrict_xml_report_to_tags>
+   <xml_report_tags>cfg_value_analysis,wcet_analysis</xml_report_tags>
+   <always_read_program_headers>false</always_read_program_headers>
+   <assume_aligned_data_accesses>false</assume_aligned_data_accesses>
+   <data_cache_mode>Normal</data_cache_mode>
+   <default_incarnation_bound>1</default_incarnation_bound>
+   <default_loop_bound>4</default_loop_bound>
+   <default_recursion_bound>4</default_recursion_bound>
+   <detect_timing_anomalies>false</detect_timing_anomalies>
+   <dump_ais_files>true</dump_ais_files>
+   <enable_iterative_decoding>true</enable_iterative_decoding>
+   <enable_trace_iterative_decoding>true</enable_trace_iterative_decoding>
+   <extract_annotations_from_executables>true</extract_annotations_from_executables>
+   <extract_annotations_from_source_files>false</extract_annotations_from_source_files>
+   <generate_basic_block_statistics>false</generate_basic_block_statistics>
+   <ilp_solver>clpsolve</ilp_solver>
+   <include_output_from_intermediate_decoding_rounds>false</include_output_from_intermediate_decoding_rounds>
+   <instruction_cache_mode>Normal</instruction_cache_mode>
+   <interactive_pipeline_visualization>false</interactive_pipeline_visualization>
+   <path_analysis_variant>ILP based</path_analysis_variant>
+   <pedantic_level>0</pedantic_level>
+   <process_complete_traces_only>false</process_complete_traces_only>
+   <read_constant_variable_information_from_debug_information>false</read_constant_variable_information_from_debug_information>
+   <read_debug_information>true</read_debug_information>
+   <read_volatile_variable_information_from_debug_information>false</read_volatile_variable_information_from_debug_information>
+   <report_file_verbosity_level>1</report_file_verbosity_level>
+   <restrict_loop_bounds_with_trace_results>false</restrict_loop_bounds_with_trace_results>
+   <size_limit_for_unsharp_reads>2048</size_limit_for_unsharp_reads>
+   <size_limit_for_unsharp_writes>256</size_limit_for_unsharp_writes>
+   <size_limit_for_value_sets>16</size_limit_for_value_sets>
+   <skip_wcet_analysis_for_main_entry_if_additional_starts_are_defined>false</skip_wcet_analysis_for_main_entry_if_additional_starts_are_defined>
+   <stack_analysis_mode>optimized_with_contexts</stack_analysis_mode>
+   <strip_compilation_path>false</strip_compilation_path>
+   <threshold_for_applying_default_memory_regions>1024</threshold_for_applying_default_memory_regions>
+   <threshold_for_trace_segment_statistics>128</threshold_for_trace_segment_statistics>
+   <timeweaver_perform_value_analysis>true</timeweaver_perform_value_analysis>
+   <use_automatic_annotations_for_call_graph_creation>true</use_automatic_annotations_for_call_graph_creation>
+   <use_dwarf_to_restrict_memory_accesses>true</use_dwarf_to_restrict_memory_accesses>
+   <use_legacy_ais_annotations>false</use_legacy_ais_annotations>
+   <use_only_safe_patterns>false</use_only_safe_patterns>
+   <use_register_relative_address_information>true</use_register_relative_address_information>
+   <value_analysis_widening_delay>4</value_analysis_widening_delay>
+   <wcet_computation_mode>Global worst-case</wcet_computation_mode>
+   <xml_cache_statistics>false</xml_cache_statistics>
+   <xml_call_graph>false</xml_call_graph>
+   <xml_report_file_verbosity_level>1</xml_report_file_verbosity_level>
+  </analyses_options>
+  <arm_options>
+   <general>
+    <target>Cortex-M3</target>
+    <data_cache_zero_id_register>0x4</data_cache_zero_id_register>
+   </general>
+   <stack_pointer>0x20010000</stack_pointer>
+   <flash>
+    <address_waitstates>0</address_waitstates>
+    <bypass_instruction_buffer>false</bypass_instruction_buffer>
+    <data_waitstates>0</data_waitstates>
+    <eeprom_data_waitstates>9</eeprom_data_waitstates>
+    <enable_eeprom_emulation>false</enable_eeprom_emulation>
+    <enable_pipelining>false</enable_pipelining>
+    <enable_prefetch_for_port_a>false</enable_prefetch_for_port_a>
+    <enable_prefetch_for_port_b>false</enable_prefetch_for_port_b>
+    <enable_static_prefetch>false</enable_static_prefetch>
+    <error_correction_waitstates>0</error_correction_waitstates>
+   </flash>
+   <instruction_set>THUMB</instruction_set>
+   <rcpc_remap_control>
+    <memory_type>External static memory</memory_type>
+   </rcpc_remap_control>
+  </arm_options>
+ </options>
+ <analyses>
+  <analysis id="aiT" type="wcet_analysis" enabled="true">
+   <analysis_start>main()</analysis_start>
+   <xml_report>/home/peer/dev/qemu-plugin-qta/tutorial/program03.a3report</xml_report>
+   <ais>/home/peer/dev/qemu-plugin-qta/tutorial/program03.ais</ais>
+   <allow_partial_trace>false</allow_partial_trace>
+   <allow_permutation_of_events>false</allow_permutation_of_events>
+   <analysis_start_mode>0</analysis_start_mode>
+   <core_id>-1</core_id>
+   <create_visualization_for_matching_snippets>false</create_visualization_for_matching_snippets>
+   <end_inclusive>false</end_inclusive>
+   <end_required>false</end_required>
+   <event_types>bus</event_types>
+   <expected_result_unit>cycles</expected_result_unit>
+   <extra_events>5</extra_events>
+   <generate_annotations_using_source_code_program_points>false</generate_annotations_using_source_code_program_points>
+   <graph_compression>Normal</graph_compression>
+   <maximum_global_overestimation>-1</maximum_global_overestimation>
+   <maximum_global_underestimation>-1</maximum_global_underestimation>
+   <maximum_local_overestimation>-1</maximum_local_overestimation>
+   <maximum_local_underestimation>-1</maximum_local_underestimation>
+   <maximum_permutation_count>-1</maximum_permutation_count>
+   <maximum_permutation_distance>8</maximum_permutation_distance>
+   <minimal_cumulative_frequency>0</minimal_cumulative_frequency>
+   <reset_device_first>false</reset_device_first>
+   <show_full_prediction_graph>false</show_full_prediction_graph>
+   <snippet>-1</snippet>
+   <stop_after_first_valid_match>false</stop_after_first_valid_match>
+   <trace_repeat>0</trace_repeat>
+   <truncate>0</truncate>
+  </analysis>
+ </analyses>
+</project>
+<wcet_analysis_task>
+<cfg_value_analysis>
+
+<spec file="/home/peer/dev/qemu-plugin-qta/tutorial/program03.ais">
+<textline># enter AIS annotations here or use &#x27;Insert AIS annotation...&#x27; from the context menu
+</textline>
+<textline>loop &#x22;display.L1&#x22; {
+</textline>
+<textline>  bound: 0 .. 17;
+</textline>
+<textline>}</textline>
+</spec>
+<routines>
+<routine id="d1_r2" address="thumb::0x20" name="main">
+<block id="d1_b3" type="start" address="thumb::0x20">
+<successor>d1_b5</successor>
+</block>
+<block id="d1_b4" type="end" />
+<block id="d1_b5" type="normal" address="thumb::0x20">
+<first_instruction>thumb::0x20</first_instruction>
+<last_instruction>thumb::0x26</last_instruction>
+<successor>d1_b7</successor>
+<file name="01-simple.c">
+<line number="1" />
+<line number="2" />
+<line number="3" />
+<line number="4" />
+<line number="5" />
+<line number="6" />
+</file>
+</block>
+<block id="d1_b7" type="call" address="thumb::0x26">
+<successor>d1_b8</successor>
+<successor>d1_b23</successor>
+</block>
+<block id="d1_b8" type="return" address="thumb::0x26">
+<successor>d1_b17</successor>
+</block>
+<block id="d1_b17" type="normal" address="thumb::0x2a">
+<first_instruction>thumb::0x2a</first_instruction>
+<last_instruction>thumb::0x2e</last_instruction>
+<successor>d1_b4</successor>
+<file name="01-simple.c">
+<line number="6" />
+<line number="7" />
+<line number="8" />
+</file>
+</block>
+</routine>
+<routine id="d1_r22" address="thumb::0x34" name="display">
+<block id="d1_b23" type="start" address="thumb::0x34">
+<successor>d1_b25</successor>
+</block>
+<block id="d1_b24" type="end">
+<successor>d1_b8</successor>
+</block>
+<block id="d1_b25" type="normal" address="thumb::0x34">
+<first_instruction>thumb::0x34</first_instruction>
+<last_instruction>thumb::0x3c</last_instruction>
+<successor>d1_b72</successor>
+<file name="uart.c">
+<line number="1" />
+<line number="2" />
+<line number="3" />
+<line number="4" />
+<line number="5" />
+<line number="6" />
+<line number="7" />
+</file>
+</block>
+<block id="d1_b49" type="normal" address="thumb::0x54">
+<first_instruction>thumb::0x54</first_instruction>
+<last_instruction>thumb::0x5e</last_instruction>
+<successor>d1_b24</successor>
+<file name="uart.c">
+<line number="10" />
+<line number="11" />
+</file>
+</block>
+<block id="d1_b72" type="call" address="thumb::0x34">
+<successor>d1_b73</successor>
+<successor>d1_b63</successor>
+</block>
+<block id="d1_b73" type="return" address="thumb::0x34">
+<successor>d1_b49</successor>
+</block>
+</routine>
+<routine id="d1_r62" address="thumb::0x4c" name="display.L1" loop="1" extracted_from="display" loop_type_user="unknown" loop_type_auto="begin">
+<block id="d1_b63" type="start" address="thumb::0x4c">
+<successor>d1_b42</successor>
+</block>
+<block id="d1_b64" type="end">
+<successor>d1_b66</successor>
+<successor>d1_b73</successor>
+</block>
+<block id="d1_b33" type="normal" address="thumb::0x3e">
+<first_instruction>thumb::0x3e</first_instruction>
+<last_instruction>thumb::0x4a</last_instruction>
+<loop_classification>body</loop_classification>
+<successor>d1_b65</successor>
+<file name="uart.c">
+<line number="8" />
+<line number="9" />
+</file>
+</block>
+<block id="d1_b42" type="normal" address="thumb::0x4c">
+<first_instruction>thumb::0x4c</first_instruction>
+<last_instruction>thumb::0x52</last_instruction>
+<loop_classification>head</loop_classification>
+<successor>d1_b33</successor>
+<successor>d1_b64</successor>
+<file name="uart.c">
+<line number="7" />
+</file>
+</block>
+<block id="d1_b65" type="call" address="thumb::0x3e">
+<successor>d1_b66</successor>
+<successor>d1_b63</successor>
+</block>
+<block id="d1_b66" type="return" address="thumb::0x3e">
+<successor>d1_b64</successor>
+</block>
+</routine>
+</routines>
+<entry routine="d1_r2" />
+<additional_entries />
+<decode_statistics>
+<routines>2</routines>
+<blocks>6</blocks>
+<loops>1</loops>
+<instructions>29</instructions>
+<additional_duplicated_instructions>0</additional_duplicated_instructions>
+<code_size>60</code_size>
+<computed_branches>0</computed_branches>
+<computed_calls>0</computed_calls>
+<unresolved_computed_branches>0</unresolved_computed_branches>
+<unresolved_computed_calls>0</unresolved_computed_calls>
+<applied_decoder_patterns></applied_decoder_patterns>
+</decode_statistics>
+<value_results>
+<value_block routine="main" address="thumb::0x20" file="01-simple.c" line="1" id="5" context_id="d1_r2_c0">
+<value_instruction routine="main" address="thumb::0x20" file="01-simple.c" line="1" id="13">
+<value_step type="write" mode="normal" width="8" index="+1">
+<value_area min="0x2000fff8" max="0x2000fff8" mod="32" rem="0x2000fff8" />
+</value_step>
+</value_instruction>
+<value_instruction routine="main" address="thumb::0x24" file="01-simple.c" line="5" id="15">
+<value_step type="read" mode="normal" width="4" index="+1" variables="part of &#x27;main&#x27;">
+<value_area min="0x30" max="0x30" mod="32" rem="0x30" />
+<value_step_content index="+1">
+<value_interval min="0x64" max="0x64" mod="32" rem="0x64" />
+</value_step_content>
+</value_step>
+</value_instruction>
+</value_block>
+<value_block routine="display" address="thumb::0x34" file="uart.c" line="1" id="25" context_id="d1_r22_c0">
+<value_instruction routine="display" address="thumb::0x34" file="uart.c" line="1" id="28">
+<value_step type="write" mode="normal" width="4" index="+1">
+<value_area min="0x2000fff4" max="0x2000fff4" mod="32" rem="0x2000fff4" />
+<value_step_content index="+1">
+<value_interval min="0x2000fff8" max="0x2000fff8" mod="32" rem="0x2000fff8" />
+</value_step_content>
+</value_step>
+</value_instruction>
+<value_instruction routine="display" address="thumb::0x3a" file="uart.c" line="6" id="31">
+<value_step type="write" mode="normal" width="4" index="+1">
+<value_area min="0x2000ffec" max="0x2000ffec" mod="32" rem="0x2000ffec" />
+<value_step_content index="+1">
+<value_interval min="0x64" max="0x64" mod="32" rem="0x64" />
+</value_step_content>
+</value_step>
+</value_instruction>
+</value_block>
+<value_block routine="display.L1" address="thumb::0x4c" file="uart.c" line="7" id="42" context_id="d1_r62_c0">
+<value_instruction routine="display.L1" address="thumb::0x4c" file="uart.c" line="7" id="45">
+<value_step type="read" mode="normal" width="4" index="+1">
+<value_area min="0x2000ffec" max="0x2000ffec" mod="32" rem="0x2000ffec" />
+<value_step_content index="+1">
+<value_interval min="0x64" max="0x64" mod="32" rem="0x64" />
+</value_step_content>
+</value_step>
+</value_instruction>
+<value_instruction routine="display.L1" address="thumb::0x4e" file="uart.c" line="7" id="46">
+<value_step type="read" mode="normal" width="1" index="+1">
+<value_area min="0x64" max="0x64" mod="32" rem="0x64" />
+<value_step_content index="+1">
+<value_interval min="0x53" max="0x53" mod="8" rem="0x53" />
+</value_step_content>
+</value_step>
+</value_instruction>
+</value_block>
+<value_block routine="display.L1" address="thumb::0x3e" file="uart.c" line="8" id="33" context_id="d1_r62_c0">
+<value_instruction routine="display.L1" address="thumb::0x3e" file="uart.c" line="8" id="35">
+<value_step type="read" mode="normal" width="4" index="+1">
+<value_area min="0x2000ffec" max="0x2000ffec" mod="32" rem="0x2000ffec" />
+<value_step_content index="+1">
+<value_interval min="0x64" max="0x64" mod="32" rem="0x64" />
+</value_step_content>
+</value_step>
+</value_instruction>
+<value_instruction routine="display.L1" address="thumb::0x40" file="uart.c" line="8" id="36">
+<value_step type="read" mode="normal" width="1" index="+1">
+<value_area min="0x64" max="0x64" mod="32" rem="0x64" />
+<value_step_content index="+1">
+<value_interval min="0x53" max="0x53" mod="8" rem="0x53" />
+</value_step_content>
+</value_step>
+</value_instruction>
+<value_instruction routine="display.L1" address="thumb::0x42" file="uart.c" line="8" id="37">
+<value_step type="read" mode="normal" width="4" index="+1" variables="part of &#x27;display&#x27;">
+<value_area min="0x60" max="0x60" mod="32" rem="0x60" />
+<value_step_content index="+1">
+<value_interval min="0x40011004" max="0x40011004" mod="32" rem="0x40011004" />
+</value_step_content>
+</value_step>
+</value_instruction>
+<value_instruction routine="display.L1" address="thumb::0x44" file="uart.c" line="8" id="38">
+<value_step type="write" mode="normal" width="4" index="+1">
+<value_area min="0x40011004" max="0x40011004" mod="32" rem="0x40011004" />
+<value_step_content index="+1">
+<value_interval min="0x53" max="0x53" mod="32" rem="0x53" />
+</value_step_content>
+</value_step>
+</value_instruction>
+<value_instruction routine="display.L1" address="thumb::0x46" file="uart.c" line="9" id="39">
+<value_step type="read" mode="normal" width="4" index="+1">
+<value_area min="0x2000ffec" max="0x2000ffec" mod="32" rem="0x2000ffec" />
+<value_step_content index="+1">
+<value_interval min="0x64" max="0x64" mod="32" rem="0x64" />
+</value_step_content>
+</value_step>
+</value_instruction>
+<value_instruction routine="display.L1" address="thumb::0x4a" file="uart.c" line="9" id="41">
+<value_step type="write" mode="normal" width="4" index="+1">
+<value_area min="0x2000ffec" max="0x2000ffec" mod="32" rem="0x2000ffec" />
+<value_step_content index="+1">
+<value_interval min="0x65" max="0x65" mod="32" rem="0x65" />
+</value_step_content>
+</value_step>
+</value_instruction>
+</value_block>
+<value_block routine="display.L1" address="thumb::0x4c" file="uart.c" line="7" id="42" context_id="d1_r62_c1">
+<value_instruction routine="display.L1" address="thumb::0x4c" file="uart.c" line="7" id="45">
+<value_step type="read" mode="normal" width="4" index="+1">
+<value_area min="0x2000ffec" max="0x2000ffec" mod="32" rem="0x2000ffec" />
+<value_step_content index="+1">
+<value_interval min="0x65" max="0x75" />
+</value_step_content>
+</value_step>
+</value_instruction>
+<value_instruction routine="display.L1" address="thumb::0x4e" file="uart.c" line="7" id="46">
+<value_step type="read" mode="normal" width="1" index="+1">
+<value_area min="0x65" max="0x75" />
+<value_step_content index="+1">
+<value_interval min="0" max="0" />
+<value_interval min="0x31" max="0x31" />
+<value_interval min="0x37" max="0x37" />
+<value_interval min="0x43" max="0x43" />
+<value_interval min="0x57" max="0x57" />
+<value_interval min="0x61" max="0x61" />
+<value_interval min="0x67" max="0x67" />
+<value_interval min="0x68" max="0x68" />
+<value_interval min="0x69" max="0x69" />
+<value_interval min="0x6e" max="0x6e" />
+<value_interval min="0x72" max="0x72" />
+<value_interval min="0x73" max="0x73" />
+<value_interval min="0x74" max="0x74" />
+</value_step_content>
+</value_step>
+</value_instruction>
+</value_block>
+<value_block routine="display.L1" address="thumb::0x3e" file="uart.c" line="8" id="33" context_id="d1_r62_c1">
+<value_instruction routine="display.L1" address="thumb::0x3e" file="uart.c" line="8" id="35">
+<value_step type="read" mode="normal" width="4" index="+1">
+<value_area min="0x2000ffec" max="0x2000ffec" mod="32" rem="0x2000ffec" />
+<value_step_content index="+1">
+<value_interval min="0x65" max="0x75" />
+</value_step_content>
+</value_step>
+</value_instruction>
+<value_instruction routine="display.L1" address="thumb::0x40" file="uart.c" line="8" id="36">
+<value_step type="read" mode="normal" width="1" index="+1">
+<value_area min="0x65" max="0x75" />
+<value_step_content index="+1">
+<value_interval min="0" max="0" />
+<value_interval min="0x31" max="0x31" />
+<value_interval min="0x37" max="0x37" />
+<value_interval min="0x43" max="0x43" />
+<value_interval min="0x57" max="0x57" />
+<value_interval min="0x61" max="0x61" />
+<value_interval min="0x67" max="0x67" />
+<value_interval min="0x68" max="0x68" />
+<value_interval min="0x69" max="0x69" />
+<value_interval min="0x6e" max="0x6e" />
+<value_interval min="0x72" max="0x72" />
+<value_interval min="0x73" max="0x73" />
+<value_interval min="0x74" max="0x74" />
+</value_step_content>
+</value_step>
+</value_instruction>
+<value_instruction routine="display.L1" address="thumb::0x42" file="uart.c" line="8" id="37">
+<value_step type="read" mode="normal" width="4" index="+1" variables="part of &#x27;display&#x27;">
+<value_area min="0x60" max="0x60" mod="32" rem="0x60" />
+<value_step_content index="+1">
+<value_interval min="0x40011004" max="0x40011004" mod="32" rem="0x40011004" />
+</value_step_content>
+</value_step>
+</value_instruction>
+<value_instruction routine="display.L1" address="thumb::0x44" file="uart.c" line="8" id="38">
+<value_step type="write" mode="normal" width="4" index="+1">
+<value_area min="0x40011004" max="0x40011004" mod="32" rem="0x40011004" />
+<value_step_content index="+1">
+<value_interval min="0" max="0" />
+<value_interval min="0x31" max="0x31" />
+<value_interval min="0x37" max="0x37" />
+<value_interval min="0x43" max="0x43" />
+<value_interval min="0x57" max="0x57" />
+<value_interval min="0x61" max="0x61" />
+<value_interval min="0x67" max="0x67" />
+<value_interval min="0x68" max="0x68" />
+<value_interval min="0x69" max="0x69" />
+<value_interval min="0x6e" max="0x6e" />
+<value_interval min="0x72" max="0x72" />
+<value_interval min="0x73" max="0x73" />
+<value_interval min="0x74" max="0x74" />
+</value_step_content>
+</value_step>
+</value_instruction>
+<value_instruction routine="display.L1" address="thumb::0x46" file="uart.c" line="9" id="39">
+<value_step type="read" mode="normal" width="4" index="+1">
+<value_area min="0x2000ffec" max="0x2000ffec" mod="32" rem="0x2000ffec" />
+<value_step_content index="+1">
+<value_interval min="0x65" max="0x75" />
+</value_step_content>
+</value_step>
+</value_instruction>
+<value_instruction routine="display.L1" address="thumb::0x4a" file="uart.c" line="9" id="41">
+<value_step type="write" mode="normal" width="4" index="+1">
+<value_area min="0x2000ffec" max="0x2000ffec" mod="32" rem="0x2000ffec" />
+<value_step_content index="+1">
+<value_interval min="0x66" max="0x76" />
+</value_step_content>
+</value_step>
+</value_instruction>
+</value_block>
+<value_block routine="display" address="thumb::0x54" file="uart.c" line="10" id="49" context_id="d1_r22_c0">
+<value_instruction routine="display" address="thumb::0x5c" file="uart.c" line="11" id="55">
+<value_step type="read" mode="normal" width="4" index="+1">
+<value_area min="0x2000fff4" max="0x2000fff4" mod="32" rem="0x2000fff4" />
+<value_step_content index="+1">
+<value_interval min="0x2000fff8" max="0x2000fff8" mod="32" rem="0x2000fff8" />
+</value_step_content>
+</value_step>
+</value_instruction>
+</value_block>
+<value_block routine="main" address="thumb::0x2a" file="01-simple.c" line="6" id="17" context_id="d1_r2_c0">
+<value_instruction routine="main" address="thumb::0x2e" file="01-simple.c" line="8" id="21">
+<value_step type="read" mode="normal" width="8" index="+1">
+<value_area min="0x2000fff8" max="0x2000fff8" mod="32" rem="0x2000fff8" />
+</value_step>
+</value_instruction>
+</value_block>
+</value_results>
+<contexts>
+<context id="d1_r2_c0" routine="d1_r2" position="+0" infeasible="0">any-history</context>
+<context id="d1_r2_combined" routine="d1_r2" position="-1" infeasible="0" />
+<context id="d1_r22_c0" routine="d1_r22" position="+0" infeasible="0">..., thumb::0x26-&#x3e;&#x22;display&#x22;</context>
+<context id="d1_r22_combined" routine="d1_r22" position="-1" infeasible="0" />
+<context id="d1_r62_c0" routine="d1_r62" position="+0" infeasible="0">..., thumb::0x26-&#x3e;&#x22;display&#x22;, thumb::0x34-&#x3e;&#x22;display.L1&#x22;[1]</context>
+<context id="d1_r62_c1" routine="d1_r62" position="+1" infeasible="0">..., thumb::0x26-&#x3e;&#x22;display&#x22;, thumb::0x34-&#x3e;&#x22;display.L1&#x22;[2..]</context>
+<context id="d1_r62_combined" routine="d1_r62" position="-1" infeasible="0" />
+</contexts>
+<loopbounds>
+<loopbound routine="d1_r62" context="d1_r22_c0" type="user annotation" min="1" max="18" />
+</loopbounds>
+<loopbound_statistics total="1" computed="0" annotated="1" heuristic="0" unknown="0" />
+<value_area_infos>
+<value_area_info type="mirrored" />
+<value_area_info type="volatile">
+<value_area min="0x22000000" max="0x23ffffff" />
+<value_area min="0x40000000" max="0x5fffffff" />
+</value_area_info>
+<value_area_info type="inaccessible" />
+<value_area_info type="read-only">
+<value_area min="0" max="0x7b" />
+</value_area_info>
+<value_area_info type="constant" />
+</value_area_infos>
+<value_instruction_read_statistics total="9" exact="7" nearly_exact="2" imprecise="0" unknown="0" />
+<value_instruction_speculative_read_statistics total="0" exact="0" nearly_exact="0" imprecise="0" unknown="0" />
+<value_instruction_write_statistics total="5" exact="5" nearly_exact="0" imprecise="0" unknown="0" />
+<value_instruction_speculative_write_statistics total="0" exact="0" nearly_exact="0" imprecise="0" unknown="0" />
+<value_read_statistics total="15" exact="13" nearly_exact="2" imprecise="0" unknown="0" />
+<value_speculative_read_statistics total="0" exact="0" nearly_exact="0" imprecise="0" unknown="0" />
+<value_write_statistics total="7" exact="7" nearly_exact="0" imprecise="0" unknown="0" />
+<value_speculative_write_statistics total="0" exact="0" nearly_exact="0" imprecise="0" unknown="0" />
+<value_interesting_program_points />
+<value_expected_reachabilities />
+<value_item_successor_reachabilities />
+<value_variable_trace_infos />
+<messages>
+<message type="info">
+<textline>Reading binary &#x27;program03.arm.elf&#x27;.</textline>
+<textline>* Type: ELF</textline>
+<textline>* Size: 66 KB (67984 bytes)</textline>
+<textline>* MD5: f9ab0ac0c16d192ad222c2bde1a0ca83</textline>
+</message>
+<message type="info">
+<textline>Using decoder for &#x27;ARM&#x27; and compiler &#x27;GCC&#x27;.</textline>
+</message>
+<message type="info">
+<textline>Annotated user stackpointer: 0x20010000</textline>
+</message>
+<message type="info">
+<textline>Value analyzer statistics (max-length=2, default-unroll=2, normal mode):</textline>
+<textline>  * Created 860 states.</textline>
+<textline>  * Created 591 output carriers.</textline>
+<textline>  * Processed 94 nodes * contexts until fixed-point was reached.</textline>
+<textline>  * Processed 0 nodes * contexts directly in the fixed-point.</textline>
+<textline>  * Processed 24 nodes * contexts again in the fixed-point.</textline>
+<textline>  * Applied 19 times the widening operator.</textline>
+<textline>  * Applied 1 times the widening operator with an effect.</textline>
+<textline>  * At most 4 routines * contexts in the worklist.</textline>
+<textline>  * At most 7 blocks * contexts in the worklist.</textline>
+<textline>  * At most 6 data-flow values stored in the worklist.</textline>
+<textline>  * At most 12 data-flow values stored globally.</textline>
+<textline>  * Allocated 10k GC heap objects of total size 1 MB.</textline>
+</message>
+<message type="info">
+<textline>Loop analysis found 1 loop bound.</textline>
+</message>
+<message type="info">
+<textline>Memory Access Statistics:</textline>
+<textline>Instructions:</textline>
+<textline> -         9 total loads              :         7 exact ( 77.7%),         2 nearly exact ( 22.2%),         0 imprecise (  0.0%),         0 unknown (  0.0%)</textline>
+<textline> -         5 total stores             :         5 exact (100.0%),         0 nearly exact (  0.0%),         0 imprecise (  0.0%),         0 unknown (  0.0%)</textline>
+<textline>Accesses (instructions * access steps * contexts):</textline>
+<textline> -        15 total reads              :        13 exact ( 86.6%),         2 nearly exact ( 13.3%),         0 imprecise (  0.0%),         0 unknown (  0.0%)</textline>
+<textline> -         7 total writes             :         7 exact (100.0%),         0 nearly exact (  0.0%),         0 imprecise (  0.0%),         0 unknown (  0.0%)</textline>
+<textline>(areas up to 1024 bytes are considered &#x27;nearly exact&#x27;).</textline>
+</message>
+</messages>
+</cfg_value_analysis>
+<wcet_analysis>
+
+<expectation>success</expectation>
+<infeasibility_results>
+<infeasibility_routine routine="d1_r22" infeasible="0" infeasible_blocks="0" blocks="2" infeasible_instructions="0" instructions="11" infeasible_edges="0" edges="2" />
+<infeasibility_routine routine="d1_r62" infeasible="0" infeasible_blocks="0" blocks="2" infeasible_instructions="0" instructions="11" infeasible_edges="0" edges="3" />
+<infeasibility_routine routine="d1_r2" infeasible="0" infeasible_blocks="0" blocks="2" infeasible_instructions="0" instructions="7" infeasible_edges="0" edges="2" />
+</infeasibility_results>
+<wcet_results entry="d1_r2">
+<wcet_routine routine="d1_r22" count="1" cycles="14" cumulative_cycles="310">
+<wcet_context count="1" context="d1_r22_c0" cycles="14" cumulative_cycles="310" />
+</wcet_routine>
+<wcet_routine routine="d1_r62" count="18" cycles="296" cumulative_cycles="296">
+<wcet_context count="1" context="d1_r62_c0" cycles="18" cumulative_cycles="296" />
+<wcet_context count="17" context="d1_r62_c1" cycles="278" cumulative_cycles="278" />
+</wcet_routine>
+<wcet_routine routine="d1_r2" count="1" cycles="17" cumulative_cycles="327">
+<wcet_context count="1" context="d1_r2_c0" cycles="17" cumulative_cycles="327" />
+</wcet_routine>
+</wcet_results>
+<wcet_path>
+<wcet_entry routine="d1_r2" />
+<wcet_routine routine="d1_r22" count="1" cycles="14" cumulative_cycles="310">
+<wcet_context context="d1_r22_c0" count="1" cycles="14" cumulative_cycles="310">
+<wcet_start block="d1_b23" context="d1_r22_c0" />
+<wcet_edge source_block="d1_b23" source_context="d1_r22_c0" count="1" target_block="d1_b25" target_context="d1_r22_c0" />
+<wcet_edge source_block="d1_b25" source_context="d1_r22_c0" count="1" cycles="7" edge_cycles="7" target_block="d1_b72" target_context="d1_r22_c0" />
+<wcet_edge_call source_block="d1_b72" source_context="d1_r22_c0" count="1" target_routine="d1_r62" target_context="d1_r62_c0" />
+<wcet_edge_return source_routine="d1_r62" source_context="d1_r62_c0" count="1" target_block="d1_b73" target_context="d1_r22_c0" />
+<wcet_edge source_block="d1_b73" source_context="d1_r22_c0" count="1" target_block="d1_b49" target_context="d1_r22_c0" />
+<wcet_edge source_block="d1_b49" source_context="d1_r22_c0" count="1" cycles="7" edge_cycles="7" target_block="d1_b24" target_context="d1_r22_c0" />
+<wcet_end block="d1_b24" context="d1_r22_c0" />
+</wcet_context>
+</wcet_routine>
+<wcet_routine routine="d1_r62" count="18" cycles="296" cumulative_cycles="296">
+<wcet_context context="d1_r62_c0" count="1" cycles="18" cumulative_cycles="296">
+<wcet_start block="d1_b63" context="d1_r62_c0" />
+<wcet_edge source_block="d1_b63" source_context="d1_r62_c0" count="1" target_block="d1_b42" target_context="d1_r62_c0" />
+<wcet_edge source_block="d1_b42" source_context="d1_r62_c0" count="1" cycles="7" edge_cycles="7" target_block="d1_b33" target_context="d1_r62_c0" />
+<wcet_edge source_block="d1_b33" source_context="d1_r62_c0" count="1" cycles="11" edge_cycles="11" target_block="d1_b65" target_context="d1_r62_c0" />
+<wcet_edge_call source_block="d1_b65" source_context="d1_r62_c0" count="1" target_routine="d1_r62" target_context="d1_r62_c1" />
+<wcet_edge_return source_routine="d1_r62" source_context="d1_r62_c1" count="1" target_block="d1_b66" target_context="d1_r62_c0" />
+<wcet_edge source_block="d1_b66" source_context="d1_r62_c0" count="1" target_block="d1_b64" target_context="d1_r62_c0" />
+<wcet_end block="d1_b64" context="d1_r62_c0" />
+</wcet_context>
+<wcet_context context="d1_r62_c1" count="17" cycles="278" cumulative_cycles="278">
+<wcet_start block="d1_b63" context="d1_r62_c1" />
+<wcet_edge source_block="d1_b63" source_context="d1_r62_c1" count="17" target_block="d1_b42" target_context="d1_r62_c1" />
+<wcet_edge source_block="d1_b42" source_context="d1_r62_c1" count="16" cycles="96" edge_cycles="6" target_block="d1_b33" target_context="d1_r62_c1" />
+<wcet_edge source_block="d1_b42" source_context="d1_r62_c1" count="1" cycles="6" edge_cycles="6" target_block="d1_b64" target_context="d1_r62_c1" />
+<wcet_edge source_block="d1_b33" source_context="d1_r62_c1" count="16" cycles="176" edge_cycles="11" target_block="d1_b65" target_context="d1_r62_c1" />
+<wcet_edge_call source_block="d1_b65" source_context="d1_r62_c1" count="16" target_routine="d1_r62" target_context="d1_r62_c1" />
+<wcet_edge_return source_routine="d1_r62" source_context="d1_r62_c1" count="16" target_block="d1_b66" target_context="d1_r62_c1" />
+<wcet_edge source_block="d1_b66" source_context="d1_r62_c1" count="16" target_block="d1_b64" target_context="d1_r62_c1" />
+<wcet_end block="d1_b64" context="d1_r62_c1" />
+</wcet_context>
+</wcet_routine>
+<wcet_routine routine="d1_r2" count="1" cycles="17" cumulative_cycles="327">
+<wcet_context context="d1_r2_c0" count="1" cycles="17" cumulative_cycles="327">
+<wcet_start block="d1_b3" context="d1_r2_c0" />
+<wcet_edge source_block="d1_b3" source_context="d1_r2_c0" count="1" target_block="d1_b5" target_context="d1_r2_c0" />
+<wcet_edge source_block="d1_b5" source_context="d1_r2_c0" count="1" cycles="10" edge_cycles="10" target_block="d1_b7" target_context="d1_r2_c0" />
+<wcet_edge_call source_block="d1_b7" source_context="d1_r2_c0" count="1" target_routine="d1_r22" target_context="d1_r22_c0" />
+<wcet_edge_return source_routine="d1_r22" source_context="d1_r22_c0" count="1" target_block="d1_b8" target_context="d1_r2_c0" />
+<wcet_edge source_block="d1_b8" source_context="d1_r2_c0" count="1" target_block="d1_b17" target_context="d1_r2_c0" />
+<wcet_edge source_block="d1_b17" source_context="d1_r2_c0" count="1" cycles="7" edge_cycles="7" target_block="d1_b4" target_context="d1_r2_c0" />
+<wcet_end block="d1_b4" context="d1_r2_c0" />
+</wcet_context>
+</wcet_routine>
+</wcet_path>
+<wcet>327 cycles</wcet>
+<messages>
+</messages>
+</wcet_analysis>
+</wcet_analysis_task>
+
+
+<error_count>0</error_count>
+<warning_count>17</warning_count>
+<pedantic_level_violated>false</pedantic_level_violated><number_of_decoding_rounds>1</number_of_decoding_rounds>
+<exit_code>success</exit_code>
+<end>2021-02-26 at 11:23:34</end>
+</a3>

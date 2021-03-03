@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qta:TimingAnnotation
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="https://www.hni.uni-paderborn.de/sct qta.xsd"
+	  xmlns:qta="https://www.hni.uni-paderborn.de/sct"
+	  startBlock="_start"
+	  startContext="">
+   <Blocks>
+     <Block address="0x80000000" blocktype="start" id="_start" />
+     <Block address="0x80000000" id="b0"/>
+     <Block address="0x8000000c" id="_end"/>
+   </Blocks>
+   <Edges>
+     <Edge cycles="0" source="_start" source_context="" target="b0" target_context=""/>
+     <Edge cycles="42" source="b0" source_context="" target="_end" target_context=""/>
+   </Edges>
+</qta:TimingAnnotation>

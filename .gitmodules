@@ -1,0 +1,3 @@
+[submodule "qemu/src"]
+	path = qemu/src
+	url = https://github.com/qemu/qemu.git

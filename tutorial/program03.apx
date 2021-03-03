@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.absint.com/dtd/a3-apx-19.10i.xsd" xmlns="http://www.absint.com/apx" version="19.10i" build="5679526" target="arm">
+ <files>
+  <executables>program03.arm.elf</executables>
+ </files>
+ <options>
+  <general_options>
+   <include_path>.</include_path>
+  </general_options>
+  <analyses_options>
+   <xml_show_per_context_info>true</xml_show_per_context_info>
+   <xml_wcet_path>true</xml_wcet_path>
+   <xml_non_wcet_cycles>true</xml_non_wcet_cycles>
+   <restrict_xml_report_to_tags>true</restrict_xml_report_to_tags>
+   <xml_report_tags>cfg_value_analysis,wcet_analysis</xml_report_tags>
+  </analyses_options>
+  <arm_options>
+   <general>
+    <target>Cortex-M3</target>
+   </general>
+   <stack_pointer>0x20010000</stack_pointer>
+  </arm_options>
+ </options>
+ <analyses>
+  <analysis id="aiT" type="wcet_analysis" enabled="true">
+   <analysis_start>main()</analysis_start>
+   <xml_report>program03.a3report</xml_report>
+   <ais>program03.ais</ais>
+  </analysis>
+ </analyses>
+</project>

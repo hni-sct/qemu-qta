@@ -1,0 +1,36 @@
+********************************************************************************
+*                                                                              *
+*    QTA - Qemu Timing Analyzer                                                *
+*                                                                              *
+*    Version 0.1                                                               *
+*    Copyright (C) 2021, Peer Adelt <adelt@hni.upb.de>, Paderborn University   *
+*                                                                              *
+********************************************************************************
+*                                                                              *
+*          Time database    : program01.qtdb                                   *
+*          Logfile          : program01.log                                    *
+*                                                                              *
+*      / -------------------------------------------------------------- \      *
+***** /                       PROGRAM OUTPUT BELOW                       \ *****
+
+[QTA]	Simulation started
+
+[QTA]	Execute TB	[ 0x80000000 : 0x8000000c ]
+	EDGE (_start -> b0)
+
+[QTA]	Execute TB	[ 0x8000000c : 0x8000000c ]
+	EDGE (b0 -> _end)	(Time:  42 Cycles)
+
+[QTA]	Simulation finished		(Total cycles: 42)
+
+***** \                       PROGRAM OUTPUT ABOVE                       / *****
+*      \ -------------------------------------------------------------- /      *
+*                                                                              *
+*          Simulated time    : 42 cycles                                       *
+*                                                                              *
+********************************************************************************
+*                                                                              *
+*    QTA Timing analysis completed successfully.                               *
+*    Qemu will now exit. Goodbye!                                              *
+*                                                                              *
+********************************************************************************
