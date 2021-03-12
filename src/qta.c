@@ -174,7 +174,7 @@ void qta_init(const char* filename, const char* logfile)
                             "*                                                                              *\n"
                             "*    QTA - Qemu Timing Analyzer                                                *\n"
                             "*                                                                              *\n"
-                            "*    Version 0.1p1                                                             *\n"
+                            "*    Version 0.2                                                               *\n"
                             "*    Copyright (C) 2021, Peer Adelt <adelt@hni.upb.de>, Paderborn University   *\n"
                             "*                                                                              *\n"
                             "********************************************************************************\n"

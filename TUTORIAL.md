@@ -6,7 +6,7 @@ Let us start with a very minimalistic example.
 
 ## Tutorial 1: A minimal program
 
-The following listing shows the disassembly of the a minimalistic RISC-V program in [/extra/tutorial/program01.elf](/extra/tutorial/program01.elf), which consists only of the two basic blocks `_start` at 0x8000000 and `end` at 0x8000000C.
+The following listing shows the disassembly of the a minimalistic RISC-V program in [./tests/riscv32/program01.elf](./tests/riscv32/program01.elf), which consists only of the two basic blocks `_start` at 0x8000000 and `end` at 0x8000000C.
 
 ```
 program01.elf:     file format elf32-littleriscv
@@ -14,29 +14,29 @@ program01.elf:     file format elf32-littleriscv
 
 Disassembly of section .init:
 
-80000000 <_start>:
-80000000:	00200093          	li	ra,2
-80000004:	00300113          	li	sp,3
-80000008:	002081b3          	add	gp,ra,sp
+20400000 <_start>:
+20400000:	00200093          	li	ra,2
+20400004:	00300113          	li	sp,3
+20400008:	002081b3          	add	gp,ra,sp
 
-8000000c <end>:
-8000000c:	0000006f          	j	8000000c <end>
+2040000c <end>:
+2040000c:	0000006f          	j	2040000c <end>
 ```
 
 ### The Control Flow Graph
 
 Let us assume that we want to annotate the execution time of block `_start` with 42 clock cycles. For this we have to specify a CFG (Control Flow Graph) with both basic blocks `_start`and `end` and annotate the edge between both with the value 42. Thus, the time-annotated CFG should look like this:
 
-![Control Flow Graph for Program 01](/tutorial/program01.png)
+![Control Flow Graph for Program 01](./tests/riscv32/program01.png)
 
 ### The QTA Timing Database
 
 The blocks of the CFG are defined with `<Block ... />` tags. They must have unique `id` and `address` attributes.
 
 ```xml
-<Block address="0x80000000" blocktype="start" id="_start" />
-<Block address="0x80000000" id="b0"/>
-<Block address="0x8000000c" id="_end"/>
+<Block address="0x20400000" blocktype="start" id="_start" />
+<Block address="0x20400000" id="b0"/>
+<Block address="0x2040000c" id="_end"/>
 ```
 
 Edges of the CFG are defined with `<Edge ... />` tags and range from the block referenced by `source` to the block referenced by `target`.
@@ -67,9 +67,9 @@ The following listing shows the complete QTA timing database (.qtdb):
     startBlock="_start"
     startContext="">
    <Blocks>
-     <Block address="0x80000000" blocktype="start" id="_start" />
-     <Block address="0x80000000" id="b0"/>
-     <Block address="0x8000000c" id="_end"/>
+     <Block address="0x20400000" blocktype="start" id="_start" />
+     <Block address="0x20400000" id="b0"/>
+     <Block address="0x2040000c" id="_end"/>
    </Blocks>
    <Edges>
      <Edge cycles="0" source="_start" source_context="" target="b0" target_context=""/>
@@ -80,15 +80,15 @@ The following listing shows the complete QTA timing database (.qtdb):
 
 ### Run the time simulation
 
-From inside the folder tutorial, this example can be simulated with the following command:
+From inside the folder tests/riscv32, this example can be simulated with the following command:
 
 ```bash
-../qemu/bin/qemu-system-riscv32 -M virt -bios none -kernel program01.elf -plugin ../libqta.so,arg=./program01.qtdb
+../../qemu/bin/qemu-system-riscv32 -M sifive_e -nographic -kernel program01.elf -plugin ../../libqta.so,arg=./program01.qtdb
 ```
 
 ## Tutorial 2: A simple loop
 
-The second tutorial is based on the program [/extra/tutorial/program02.elf](/extra/tutorial/program02.elf), which contains a loop that is executed 5 times in a row.
+The second tutorial is based on the program [./tests/riscv32/program02.elf](./tests/riscv32/program02.elf), which contains a loop that is executed 5 times in a row.
 
 The following listing shows the corresponding disassembly:
 
@@ -98,32 +98,32 @@ program02.elf:     file format elf32-littleriscv
 
 Disassembly of section .init:
 
-80000000 <_start>:
-80000000:	00200293          	li	t0,5
+20400000 <_start>:
+20400000:	00200293          	li	t0,5
 
-80000004 <loop>:
-80000004:	fff28293          	addi	t0,t0,-1
-80000008:	fe029ee3          	bnez	t0,80000004 <loop>
+20400004 <loop>:
+20400004:	fff28293          	addi	t0,t0,-1
+20400008:	fe029ee3          	bnez	t0,20400004 <loop>
 
-8000000c <end>:
-8000000c:	0000006f          	j	8000000c <end>
+2040000c <end>:
+2040000c:	0000006f          	j	2040000c <end>
 ```
 
 ### The Control Flow Graph
 
 In this example, the execution of `b0` block takes 13 cycles. It includes the first loop iteration. The remaing 4 loop iterations, which are represented by block `b1`, take 5 cycles each. The program flow from `b1` to `end` shall need additional 2 cycles, resulting in a total of 13 + (4*5) + 2 = 35 cycles. Thus, the time-annotated CFG should look like this:
 
-![Control Flow Graph for Program 02](/tutorial/program02.png)
+![Control Flow Graph for Program 02](./tests/riscv32/program02.png)
 
 ### The QTA Timing Database
 
 The following blocks have been defined:
 
 ```xml
-<Block address="0x80000000" blocktype="start" id="_start"/>
-<Block address="0x80000000" last_instruction="0x80000008" id="b0"/>
-<Block address="0x80000004" last_instruction="0x80000008" id="b1"/>
-<Block address="0x8000000c" blocktype="end" id="end"/>
+<Block address="0x20400000" blocktype="start" id="_start"/>
+<Block address="0x20400000" last_instruction="0x20400008" id="b0"/>
+<Block address="0x20400004" last_instruction="0x20400008" id="b1"/>
+<Block address="0x2040000c" blocktype="end" id="end"/>
 ```
 
 In contrast to the first tutorial, this example now introduces branches. Here, the block `loop` is executed exactly 5 times before the loop exit condition is true.
@@ -148,10 +148,10 @@ The following listing shows the complete QTA timing database (.qtdb):
     startBlock="_start"
     startContext="">
   <Blocks>
-    <Block address="0x80000000" blocktype="start" id="_start"/>
-    <Block address="0x80000000" last_instruction="0x80000008" id="b0"/>
-    <Block address="0x80000004" last_instruction="0x80000008" id="b1"/>
-    <Block address="0x8000000c" blocktype="end" id="end"/>
+    <Block address="0x20400000" blocktype="start" id="_start"/>
+    <Block address="0x20400000" last_instruction="0x20400008" id="b0"/>
+    <Block address="0x20400004" last_instruction="0x20400008" id="b1"/>
+    <Block address="0x2040000c" blocktype="end" id="end"/>
   </Blocks>
   <Edges>
     <Edge cycles="0" source="_start" source_context="" target="b0" target_context=""/>
@@ -164,10 +164,10 @@ The following listing shows the complete QTA timing database (.qtdb):
 
 ### Run the time simulation
 
-From inside the folder tutorial, this example can be simulated with the following command:
+From inside the tests/riscv32 tutorial, this example can be simulated with the following command:
 
 ```bash
-../qemu/bin/qemu-system-riscv32 -M virt -bios none -kernel program02.elf -plugin ../libqta.so,arg=./program02.qtdb
+../../qemu/bin/qemu-system-riscv32 -M sifive_e -nographic -kernel program02.elf -plugin ../../libqta.so,arg=./program02.qtdb
 ```
 
 ## Tutorial 3: Import WCET time behavior from AbsInt aiT
@@ -177,18 +177,18 @@ The `-o` option tells ait2qta where to put the new QTA timing database file. The
 
 ### Generate the QTDB from an aiT report file
 
-The third tutorial program was intended to demonstrate ait2qta. Head over to that folder and run
+The third tutorial program was intended to demonstrate ait2qta. Head over to the folder tests/arm and run
 ```bash
-../util/ait2qta -i program03.a3report -o program03.qtdb
-../util/ait2qta -i program03.a3report -g program03.pdf
+../../util/ait2qta -i program03.a3report -o program03.qtdb
+../../util/ait2qta -i program03.a3report -g program03.pdf
 ```
 
 ### Run the time simulation
 
-From inside the folder tutorial, this example can be simulated with the following command:
+From inside the folder tests/arm, this example can be simulated with the following command:
 
 ```bash
-../qemu/bin/qemu-system-arm -M netduino2 -nographic -kernel program03.elf -plugin ../libqta.so,arg=./program03.qtdb
+../../qemu/bin/qemu-system-arm -M netduino2 -nographic -kernel program03.elf -plugin ../../libqta.so,arg=./program03.qtdb
 ```
 
 # Additional information

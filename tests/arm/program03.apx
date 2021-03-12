@@ -11,7 +11,6 @@
    <xml_show_per_context_info>true</xml_show_per_context_info>
    <xml_wcet_path>true</xml_wcet_path>
    <xml_non_wcet_cycles>true</xml_non_wcet_cycles>
-   <restrict_xml_report_to_tags>true</restrict_xml_report_to_tags>
    <xml_report_tags>cfg_value_analysis,wcet_analysis</xml_report_tags>
   </analyses_options>
   <arm_options>

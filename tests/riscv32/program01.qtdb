@@ -6,9 +6,9 @@
 	  startBlock="_start"
 	  startContext="">
    <Blocks>
-     <Block address="0x80000000" blocktype="start" id="_start" />
-     <Block address="0x80000000" id="b0"/>
-     <Block address="0x8000000c" id="_end"/>
+     <Block address="0x20400000" blocktype="start" id="_start" />
+     <Block address="0x20400000" id="b0"/>
+     <Block address="0x2040000c" id="_end"/>
    </Blocks>
    <Edges>
      <Edge cycles="0" source="_start" source_context="" target="b0" target_context=""/>

@@ -2,7 +2,7 @@
 *                                                                              *
 *    QTA - Qemu Timing Analyzer                                                *
 *                                                                              *
-*    Version 0.1p1                                                             *
+*    Version 0.2                                                               *
 *    Copyright (C) 2021, Peer Adelt <adelt@hni.upb.de>, Paderborn University   *
 *                                                                              *
 ********************************************************************************
@@ -15,23 +15,23 @@
 
 [QTA]	Simulation started
 
-[QTA]	Execute TB	[ 0x80000000 : 0x80000008 ]
+[QTA]	Execute TB	[ 0x20400000 : 0x20400008 ]
 	EDGE (_start -> b0)
 	EDGE (b0 -> b1)	(Time:  13 Cycles)
 
-[QTA]	Execute TB	[ 0x80000004 : 0x80000008 ]
+[QTA]	Execute TB	[ 0x20400004 : 0x20400008 ]
 	EDGE (b1 -> b1)	(Time:   5 Cycles)
 
-[QTA]	Execute TB	[ 0x80000004 : 0x80000008 ]
+[QTA]	Execute TB	[ 0x20400004 : 0x20400008 ]
 	EDGE (b1 -> b1)	(Time:   5 Cycles)
 
-[QTA]	Execute TB	[ 0x80000004 : 0x80000008 ]
+[QTA]	Execute TB	[ 0x20400004 : 0x20400008 ]
 	EDGE (b1 -> b1)	(Time:   5 Cycles)
 
-[QTA]	Execute TB	[ 0x80000004 : 0x80000008 ]
+[QTA]	Execute TB	[ 0x20400004 : 0x20400008 ]
 	EDGE (b1 -> b1)	(Time:   5 Cycles)
 
-[QTA]	Execute TB	[ 0x8000000c : 0x8000000c ]
+[QTA]	Execute TB	[ 0x2040000c : 0x2040000c ]
 	EDGE (b1 -> end)	(Time:   2 Cycles)
 
 [QTA]	Simulation finished		(Total cycles: 35)

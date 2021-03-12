@@ -33,10 +33,10 @@ libqta.so: src/plugin.c src/qta.c
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBXML2_LIBS)
 
 tests: libqta.so
-	$(MAKE) -s -C tutorial all
+	$(MAKE) -s -C tests all
 
 clean:
 	rm -f libqta.so
-	$(MAKE) -s -C tutorial clean
+	$(MAKE) -s -C tests clean
 
 .PHONY: all tests clean
