@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<a3 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.absint.com/dtd/a3-report-19.10i.xsd" xmlns="http://www.absint.com/a3report" version="19.10i" build="5679526" tag="auto/2019/11/10/1919" id="aiT" filtered="true">
-<start>2021-02-26 at 11:23:33</start>
+<a3 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.absint.com/dtd/a3-report-19.10i.xsd" xmlns="http://www.absint.com/a3report" version="19.10i" build="5679526" tag="auto/2019/11/10/1919" id="aiT" filtered="false">
+<start>2021-03-11 at 12:55:20</start>
 <project xmlns="http://www.absint.com/apx" version="19.10i" build="5679526" target="arm">
  <files>
-  <executables>/home/peer/dev/qemu-plugin-qta/tutorial/program03.arm.elf</executables>
+  <executables>/home/peer/dev/qemu-qta/tutorial/program03.arm.elf</executables>
   <trace_format>Traval</trace_format>
  </files>
  <options>
@@ -14,7 +14,6 @@
    <xml_show_per_context_info>true</xml_show_per_context_info>
    <xml_wcet_path>true</xml_wcet_path>
    <xml_non_wcet_cycles>true</xml_non_wcet_cycles>
-   <restrict_xml_report_to_tags>true</restrict_xml_report_to_tags>
    <xml_report_tags>cfg_value_analysis,wcet_analysis</xml_report_tags>
    <always_read_program_headers>false</always_read_program_headers>
    <assume_aligned_data_accesses>false</assume_aligned_data_accesses>
@@ -41,6 +40,7 @@
    <read_volatile_variable_information_from_debug_information>false</read_volatile_variable_information_from_debug_information>
    <report_file_verbosity_level>1</report_file_verbosity_level>
    <restrict_loop_bounds_with_trace_results>false</restrict_loop_bounds_with_trace_results>
+   <restrict_xml_report_to_tags>false</restrict_xml_report_to_tags>
    <size_limit_for_unsharp_reads>2048</size_limit_for_unsharp_reads>
    <size_limit_for_unsharp_writes>256</size_limit_for_unsharp_writes>
    <size_limit_for_value_sets>16</size_limit_for_value_sets>
@@ -88,8 +88,8 @@
  <analyses>
   <analysis id="aiT" type="wcet_analysis" enabled="true">
    <analysis_start>main()</analysis_start>
-   <xml_report>/home/peer/dev/qemu-plugin-qta/tutorial/program03.a3report</xml_report>
-   <ais>/home/peer/dev/qemu-plugin-qta/tutorial/program03.ais</ais>
+   <xml_report>/home/peer/dev/qemu-qta/tutorial/program03.a3report</xml_report>
+   <ais>/home/peer/dev/qemu-qta/tutorial/program03.ais</ais>
    <allow_partial_trace>false</allow_partial_trace>
    <allow_permutation_of_events>false</allow_permutation_of_events>
    <analysis_start_mode>0</analysis_start_mode>
@@ -121,7 +121,7 @@
 <wcet_analysis_task>
 <cfg_value_analysis>
 
-<spec file="/home/peer/dev/qemu-plugin-qta/tutorial/program03.ais">
+<spec file="/home/peer/dev/qemu-qta/tutorial/program03.ais">
 <textline># enter AIS annotations here or use &#x27;Insert AIS annotation...&#x27; from the context menu
 </textline>
 <textline>loop &#x22;display.L1&#x22; {
@@ -561,6 +561,199 @@
 </message>
 </messages>
 </cfg_value_analysis>
+<pipeline_analysis>
+
+<pipeline_statistics>
+<pipeline_statistic type="calls" name="handle_one_instruction" value="41" />
+<pipeline_statistic type="calls" name="handle_one_cpu_state" value="44" />
+<pipeline_statistic type="calls" name="single_step" value="71" />
+<pipeline_statistic type="splits" name="multiple branch targets" value="1" />
+<pipeline_statistic type="deletes" name="wrong target" value="2" />
+</pipeline_statistics>
+<messages>
+<message type="info">
+<textline>Using wcet analysis mode &#x27;global worst case&#x27;.</textline>
+</message>
+<message type="info">
+<textline>Using instruction cache analysis mode &#x27;normal&#x27;.</textline>
+</message>
+<message type="info">
+<textline>Using data cache analysis mode &#x27;normal&#x27;.</textline>
+</message>
+<message type="info">
+<textline>Using branch target buffer analysis mode &#x27;normal&#x27;.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="main" address="thumb::0x20" file="01-simple.c" line="1" id="13" />
+<textline>No memory access timing found for code fetch of instruction 0x20.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="main" address="thumb::0x20" file="01-simple.c" line="1" id="13" />
+<textline>No memory access timing found for code fetch of instruction 0x24.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="main" address="thumb::0x20" file="01-simple.c" line="1" id="13" />
+<textline>No memory access timing found for data write access of instruction thumb::0x20 to 0x2000fff8, context any-history.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="main" address="thumb::0x20" file="01-simple.c" line="1" id="13" />
+<textline>No memory access timing found for code fetch of instruction 0x28.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="main" address="thumb::0x20" file="01-simple.c" line="1" id="13" />
+<textline>No memory access timing found for code fetch of instruction 0x2c.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="main" address="thumb::0x24" file="01-simple.c" line="5" id="15" />
+<textline>No memory access timing found for data read access of instruction thumb::0x24 to 0x30, context any-history.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="main" address="thumb::0x22" file="01-simple.c" line="4" id="14" />
+<textline>No memory access timing found for code fetch of instruction 0x30.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="main" address="thumb::0x26" file="01-simple.c" line="6" id="16" />
+<textline>No memory access timing found for code fetch of instruction 0x34.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="main" address="thumb::0x26" file="01-simple.c" line="6" id="16" />
+<textline>No memory access timing found for code fetch of instruction 0x38.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="display" address="thumb::0x34" file="uart.c" line="1" id="28" />
+<textline>No memory access timing found for data write access of instruction thumb::0x34 to 0x2000fff4, context ..., thumb::0x26-&#x3e;&#x22;display&#x22;.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="display" address="thumb::0x34" file="uart.c" line="1" id="28" />
+<textline>No memory access timing found for code fetch of instruction 0x3c.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="display" address="thumb::0x34" file="uart.c" line="1" id="28" />
+<textline>No memory access timing found for code fetch of instruction 0x40.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="display" address="thumb::0x36" file="uart.c" line="6" id="29" />
+<textline>No memory access timing found for code fetch of instruction 0x44.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="display" address="thumb::0x3a" file="uart.c" line="6" id="31" />
+<textline>No memory access timing found for data write access of instruction thumb::0x3a to 0x2000ffec, context ..., thumb::0x26-&#x3e;&#x22;display&#x22;.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="display" address="thumb::0x3a" file="uart.c" line="6" id="31" />
+<textline>No memory access timing found for code fetch of instruction 0x4c.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<location routine="display" address="thumb::0x3c" file="uart.c" line="7" id="32" />
+<textline>No memory access timing found for code fetch of instruction 0x50.</textline>
+<textline>Assuming default access timing.</textline>
+<textline>Result may not be WCET.</textline>
+</message>
+<message type="warning" number="2049">
+<textline>Already printed 16 messages of this kind, no more messages of this kind will be issued.</textline>
+</message>
+<message type="info">
+<textline>Pipeline analyzer statistics (max-length=2, default-unroll=2):</textline>
+<textline>  * Processed 24 nodes * contexts until fixed-point was reached.</textline>
+<textline>  * At most 2 carrier storage points used.</textline>
+<textline>  * Inserted 2 states into the carrier storage.</textline>
+<textline>  * At most 2 states at once inside the carrier storage.</textline>
+<textline>  * At most 6 worklist entries used.</textline>
+<textline>  * Inserted 26 states into the worklist.</textline>
+<textline>  * At most 2 states at once inside the worklist.</textline>
+<textline>  * Allocated 1k GC heap objects of total size 1 MB.</textline>
+</message>
+<message type="info">
+<textline>Calling statistics:</textline>
+<textline>41 times called handle_one_instruction.</textline>
+<textline>44 times called handle_one_cpu_state.</textline>
+<textline>71 times called single_step.</textline>
+</message>
+<message type="info">
+<textline>Calling statistics (percent of total single_step calls / routine):</textline>
+<textline>56% display.L1</textline>
+<textline>    8% thumb::0x50 &#x27;cmp r3, #0&#x27;</textline>
+<textline>    7% thumb::0x52 &#x27;bne 0x3e &#x3c;0x3e&#x3e;&#x27;</textline>
+<textline>    5% thumb::0x3e &#x27;ldr r3, [r7, #4]&#x27;</textline>
+<textline>    5% thumb::0x40 &#x27;ldrb r2, [r3]&#x27;</textline>
+<textline>    5% thumb::0x44 &#x27;str r2, [r3]&#x27;</textline>
+<textline>    5% thumb::0x48 &#x27;adds r3, #1&#x27;</textline>
+<textline>    5% thumb::0x4e &#x27;ldrb r3, [r3]&#x27;</textline>
+<textline>    4% thumb::0x4c &#x27;ldr r3, [r7, #4]&#x27;</textline>
+<textline>    2% thumb::0x42 &#x27;ldr r3, [0x60]&#x27;</textline>
+<textline>    2% thumb::0x46 &#x27;ldr r3, [r7, #4]&#x27;</textline>
+<textline>    2% thumb::0x4a &#x27;str r3, [r7, #4]&#x27;</textline>
+<textline>23% main</textline>
+<textline>    8% thumb::0x20 &#x27;push {r7, lr}&#x27;</textline>
+<textline>    5% thumb::0x2e &#x27;pop {r7, pc}&#x27;</textline>
+<textline>    2% thumb::0x26 &#x27;bl 0x34 &#x3c;display&#x3e;&#x27;</textline>
+<textline>    2% thumb::0x2a &#x27;movs r3, #0&#x27;</textline>
+<textline>    1% thumb::0x22 &#x27;add r7, sp, #0&#x27;</textline>
+<textline>    1% thumb::0x24 &#x27;ldr r0, [0x30]&#x27;</textline>
+<textline>    1% thumb::0x2c &#x27;mov r0, r3&#x27;</textline>
+<textline>19% display</textline>
+<textline>    4% thumb::0x34 &#x27;push {r7}&#x27;</textline>
+<textline>    2% thumb::0x5c &#x27;pop {r7}&#x27;</textline>
+<textline>    1% thumb::0x36 &#x27;sub sp, sp, #0xc&#x27;</textline>
+<textline>    1% thumb::0x38 &#x27;add r7, sp, #0&#x27;</textline>
+<textline>    1% thumb::0x3a &#x27;str r0, [r7, #4]&#x27;</textline>
+<textline>    1% thumb::0x3c &#x27;b 0x4c &#x3c;0x4c&#x3e;&#x27;</textline>
+<textline>    1% thumb::0x54 &#x27;nop&#x27;</textline>
+<textline>    1% thumb::0x56 &#x27;nop&#x27;</textline>
+<textline>    1% thumb::0x58 &#x27;adds r7, #0xc&#x27;</textline>
+<textline>    1% thumb::0x5a &#x27;mov sp, r7&#x27;</textline>
+<textline>    1% thumb::0x5e &#x27;bx lr&#x27;</textline>
+</message>
+<message type="info">
+<textline>Split statistics (1 classified splits):</textline>
+<textline>1 splits because of &#x27;multiple branch targets&#x27;.</textline>
+</message>
+<message type="info">
+<textline>Delete statistics (2 classified deletes):</textline>
+<textline>2 deletes because of &#x27;wrong target&#x27;.</textline>
+</message>
+</messages>
+</pipeline_analysis>
+<prediction_path_analysis>
+
+<messages>
+</messages>
+</prediction_path_analysis>
+<solver>
+
+<messages>
+</messages>
+</solver>
 <wcet_analysis>
 
 <expectation>success</expectation>
@@ -642,5 +835,5 @@
 <warning_count>17</warning_count>
 <pedantic_level_violated>false</pedantic_level_violated><number_of_decoding_rounds>1</number_of_decoding_rounds>
 <exit_code>success</exit_code>
-<end>2021-02-26 at 11:23:34</end>
+<end>2021-03-11 at 12:55:21</end>
 </a3>

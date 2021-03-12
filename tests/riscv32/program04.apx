@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.absint.com/dtd/a3-apx-20.10.xsd" xmlns="http://www.absint.com/apx" version="20.10" target="riscv" build="7686572">
+ <files>
+  <executables>program04.riscv32.elf</executables>
+ </files>
+ <options>
+  <analyses_options>
+   <xml_show_per_context_info>true</xml_show_per_context_info>
+   <xml_wcet_path>true</xml_wcet_path>
+   <xml_non_wcet_cycles>true</xml_non_wcet_cycles>
+   <xml_call_graph>true</xml_call_graph>
+   <xml_object_size_statistics>true</xml_object_size_statistics>
+   <xml_variable_usage_statistics>true</xml_variable_usage_statistics>
+   <xml_cache_statistics>true</xml_cache_statistics>
+   <report_file_verbosity_level>2</report_file_verbosity_level>
+  </analyses_options>
+  <riscv_options>
+   <general>
+    <target>danzig</target>
+   </general>
+  </riscv_options>
+ </options>
+ <analyses>
+  <analysis id="aiT" type="wcet_analysis" enabled="true">
+   <analysis_start>main</analysis_start>
+   <xml_report>program04.a3report</xml_report>
+   <ais>program04.ais</ais>
+  </analysis>
+ </analyses>
+</project>
