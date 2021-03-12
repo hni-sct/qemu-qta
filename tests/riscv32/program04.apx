@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.absint.com/dtd/a3-apx-20.10.xsd" xmlns="http://www.absint.com/apx" version="20.10" target="riscv" build="7686572">
  <files>
-  <executables>program04.riscv32.elf</executables>
+  <executables>program04.elf</executables>
  </files>
  <options>
   <analyses_options>

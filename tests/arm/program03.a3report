@@ -3,7 +3,7 @@
 <start>2021-03-11 at 12:55:20</start>
 <project xmlns="http://www.absint.com/apx" version="19.10i" build="5679526" target="arm">
  <files>
-  <executables>/home/peer/dev/qemu-qta/tutorial/program03.arm.elf</executables>
+  <executables>program03.elf</executables>
   <trace_format>Traval</trace_format>
  </files>
  <options>
@@ -88,8 +88,8 @@
  <analyses>
   <analysis id="aiT" type="wcet_analysis" enabled="true">
    <analysis_start>main()</analysis_start>
-   <xml_report>/home/peer/dev/qemu-qta/tutorial/program03.a3report</xml_report>
-   <ais>/home/peer/dev/qemu-qta/tutorial/program03.ais</ais>
+   <xml_report>program03.a3report</xml_report>
+   <ais>program03.ais</ais>
    <allow_partial_trace>false</allow_partial_trace>
    <allow_permutation_of_events>false</allow_permutation_of_events>
    <analysis_start_mode>0</analysis_start_mode>
@@ -121,7 +121,7 @@
 <wcet_analysis_task>
 <cfg_value_analysis>
 
-<spec file="/home/peer/dev/qemu-qta/tutorial/program03.ais">
+<spec file="program03.ais">
 <textline># enter AIS annotations here or use &#x27;Insert AIS annotation...&#x27; from the context menu
 </textline>
 <textline>loop &#x22;display.L1&#x22; {
@@ -520,7 +520,7 @@
 <value_variable_trace_infos />
 <messages>
 <message type="info">
-<textline>Reading binary &#x27;program03.arm.elf&#x27;.</textline>
+<textline>Reading binary &#x27;program03.elf&#x27;.</textline>
 <textline>* Type: ELF</textline>
 <textline>* Size: 66 KB (67984 bytes)</textline>
 <textline>* MD5: f9ab0ac0c16d192ad222c2bde1a0ca83</textline>

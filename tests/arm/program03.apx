@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.absint.com/dtd/a3-apx-19.10i.xsd" xmlns="http://www.absint.com/apx" version="19.10i" build="5679526" target="arm">
  <files>
-  <executables>program03.arm.elf</executables>
+  <executables>program03.elf</executables>
  </files>
  <options>
   <general_options>
