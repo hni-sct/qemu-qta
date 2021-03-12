@@ -46,8 +46,7 @@ typedef struct {
 	const char* id;
 	routine* routine;
 	GHashTable *out_edges;
-	uint64_t pc_first;
-	uint64_t pc_last;
+	uint64_t pc;
 	blocktype blocktype;
 } block;
 

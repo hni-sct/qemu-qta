@@ -106,11 +106,7 @@ void qta_init(const char* filename, const char* logfile)
         b->id = get_prop(xp, i, "id");
         const char *address = get_prop(xp, i, "address");
         if (address) {
-            sscanf(address, "0x%" PRIx64, &b->pc_first);
-        }
-        const char *last_instruction = get_prop(xp, i, "last_instruction");
-        if (last_instruction) {
-            sscanf(last_instruction, "0x%" PRIx64, &b->pc_last);
+            sscanf(address, "0x%" PRIx64, &b->pc);
         }
         const char *routine_id = get_prop(xp, i, "routine");
         if (routine_id) {
@@ -178,7 +174,7 @@ void qta_init(const char* filename, const char* logfile)
                             "*                                                                              *\n"
                             "*    QTA - Qemu Timing Analyzer                                                *\n"
                             "*                                                                              *\n"
-                            "*    Version 0.1                                                               *\n"
+                            "*    Version 0.1p1                                                             *\n"
                             "*    Copyright (C) 2021, Peer Adelt <adelt@hni.upb.de>, Paderborn University   *\n"
                             "*                                                                              *\n"
                             "********************************************************************************\n"
@@ -267,7 +263,7 @@ static void qta_takeedge(edge* edge)
             fprintf(stderr, "\t[ERROR]: CALLER STACK CONTEXT MISMATCH!\n");
             exit(1);
         }
-        if (edge->target->pc_first != entry->ret_addr) {
+        if (edge->target->pc != entry->ret_addr) {
             fprintf(stderr, "\t[ERROR]: CALL STACK ADDR MISMATCH!\n");
             exit(1);
         }
@@ -282,7 +278,7 @@ static void qta_takeedge(edge* edge)
         entry->r_callee = edge->target->routine;
         entry->ctx_caller = edge->source_context;
         entry->ctx_callee = edge->target_context;
-        entry->ret_addr = edge->source->pc_first;
+        entry->ret_addr = edge->source->pc;
         g_queue_push_head(callstack, (gpointer) entry);
         fprintf(_log, "\tCALL %s @ 0x%08"PRIx64"",
                entry->r_callee ? entry->r_callee->name : "?",
@@ -324,9 +320,9 @@ static edge *get_edge_for_pc(uint64_t pc)
 {
     edge_pair *ep = g_hash_table_lookup(blk->out_edges, ctx);
     if (ep) {
-        if (ep->edge1 && ep->edge1->target->pc_first && ep->edge1->target->pc_first == pc) {
+        if (ep->edge1 && ep->edge1->target->pc && ep->edge1->target->pc == pc) {
             return ep->edge1;
-        } else if (ep->edge2 && ep->edge2->target->pc_first && ep->edge2->target->pc_first == pc) {
+        } else if (ep->edge2 && ep->edge2->target->pc && ep->edge2->target->pc == pc) {
             return ep->edge2;
         }
     }
@@ -339,7 +335,7 @@ static edge* qta_try_next_edge(uint64_t from, uint64_t to)
     edge *e = get_edge_unconditional();
     if (e) {
         if (e->target->blocktype == NORMAL &&
-            (e->target->pc_first > to || e->target->pc_last < from)) {
+            (e->target->pc > to || e->target->pc < from)) {
             return NULL;
         } else {
             return e;
@@ -354,7 +350,7 @@ static bool qta_is_return_valid(edge* e) {
         entry != NULL &&
         g_strcmp0(e->source_context, entry->ctx_callee) == 0 &&
         g_strcmp0(e->target_context, entry->ctx_caller) == 0 &&
-        e->target->pc_first == entry->ret_addr) {
+        e->target->pc == entry->ret_addr) {
         return TRUE;
     }
     return FALSE;
@@ -362,7 +358,7 @@ static bool qta_is_return_valid(edge* e) {
 
 void qta_query(uint64_t tb_pc_first, uint64_t tb_pc_last) {
 
-    if (active == 0 && blk->pc_first && blk->pc_first == tb_pc_first)
+    if (active == 0 && blk->pc && blk->pc == tb_pc_first)
     {
         fprintf(_log, "[QTA]\tSimulation started\n");
 //        fprintf(_log, "\tCurrent Block: %s (Type: %d)\n", blk->id, blk->blocktype);

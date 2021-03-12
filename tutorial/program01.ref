@@ -2,7 +2,7 @@
 *                                                                              *
 *    QTA - Qemu Timing Analyzer                                                *
 *                                                                              *
-*    Version 0.1                                                               *
+*    Version 0.1p1                                                             *
 *    Copyright (C) 2021, Peer Adelt <adelt@hni.upb.de>, Paderborn University   *
 *                                                                              *
 ********************************************************************************
@@ -17,8 +17,6 @@
 
 [QTA]	Execute TB	[ 0x80000000 : 0x8000000c ]
 	EDGE (_start -> b0)
-
-[QTA]	Execute TB	[ 0x8000000c : 0x8000000c ]
 	EDGE (b0 -> _end)	(Time:  42 Cycles)
 
 [QTA]	Simulation finished		(Total cycles: 42)
